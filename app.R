@@ -4,7 +4,20 @@ ui <- fluidPage(
   verbatimTextOutput("summary"),
   tableOutput("table")
 )
+
+# update server to use reactive expressions 
 server <- function(input, output, session) {
+  # Create a reactive expression
+  dataset <- reactive({
+    get(input$dataset, "package:datasets")
+  })
   
+  output$summary <- renderPrint({
+    summary(dataset)
+  })
+  
+  output$table <- renderTable({
+    dataset
+  })
 }
 shinyApp(ui, server)
