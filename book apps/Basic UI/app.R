@@ -4,12 +4,12 @@ library(shiny)
 animals <- c("dog", "cat", "mouse", "bird", "other", "I hate animals")
 
 ui <- fluidPage(
-  # Free texts
+  # Free texts:---
   textInput("name", "What's your name?"),
   passwordInput("password", "What's your password?"),
   textAreaInput("story", "Tell me about yourself", rows =3),
   
-  # Numeric inputs
+  # Numeric inputs:---
   numericInput("num", "Number one", value = 0, min = 0, max = 100),
   sliderInput(
     inputId = "min",
@@ -20,7 +20,7 @@ ui <- fluidPage(
   ),
   sliderInput("rng", "Range", value = c(10, 20), min = 0, max = 100),
   
-  # Dates
+  # Dates:---
   # Single day input
   dateInput("dob", "When were you born?"),
   # Range
@@ -30,7 +30,7 @@ ui <- fluidPage(
   selectInput("state", "What's your favourite state?", choices = state.name),
   radioButtons("animal", "What's your favourite animal?", choices =  animals),
   
-  # button icons:
+  # button icons:---
   radioButtons("rb", "Choose one:",
                choiceNames = list(
                  icon("angry"),
@@ -38,7 +38,35 @@ ui <- fluidPage(
                  icon("sad-tear")
                ),
                choiceValues = list("angry", "happy", "sad")
+  ),
+  # multiple select input:---
+  selectInput(
+    "state", "What's your favourite state?", state.name,
+    multiple = TRUE
+    ),
+  
+  # select multiple values with check boxes:---
+  checkboxGroupInput("animal", "what animals do you like?", animals),
+  
+  # single yes/no check box:---
+  checkboxInput("cleanup", "clean up", value = TRUE),
+  checkboxInput("shutdown", "Shutdown"),
+  
+  # File Uploads:--
+  fileInput("upload", NULL),
+  
+  # Action buttons:---
+  fluidRow(
+    actionButton("click", "Click me !",
+                 class = "btn-danger"), # customize appearance
+    actionButton("drink", "Drink me!", icon = icon("cocktail"),
+                 class = "btn-lg btn-success") # change size
+  ),
+  fluidRow(
+    # span
+    actionButton("eat", "Eat me!", class = "btn-block")
   )
+
 )
 
 server <- function(input, output, session) {
