@@ -75,7 +75,10 @@ ui <- fluidPage(
   
   # tables:--
   tableOutput("static"),
-  dataTableOutput("dynamic")
+  dataTableOutput("dynamic"),
+  
+  #plots
+  plotOutput("plot", width = "400px")
 )
 
 server <- function(input, output, session) {
@@ -89,6 +92,8 @@ server <- function(input, output, session) {
     head(mtcars)
   )
   output$dynamic <- renderDataTable(mtcars, options = list(pageLength = 5))
+  
+  output$plot <- renderPlot(plot(1:5), res = 96)
 }
 
 shinyApp(ui, server)
