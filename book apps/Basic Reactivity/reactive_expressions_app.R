@@ -81,21 +81,18 @@ server <- function(input, output, sessions){
     )
   }
   
+  x1 <- reactive(rnorm(input$n1, input$mean1, input$sd1))
+  x2 <- reactive(rnorm(input$n2, input$mean2, input$sd2))
+  
   output$hist <- renderPlot({
-    x1 <- rnorm(input$n1, input$mean1, input$sd1)
-    x2 <- rnorm(input$n2, input$mean2, input$sd2)
-    
     freqpoly(
-      x1, x2, 
+      x1(), x2(), 
       bindwidth = input$bindwidth, xlim = input$range
     )
   }, res = 96)
   
   output$ttest <- renderText({
-    x1 <- rnorm(input$n1, input$mean1, input$sd1)
-    x2 <- rnorm(input$n2, input$mean2, input$sd2)
-    
-    t_test(x1, x2)
+    t_test(x1(), x2())
   })
 }
 
