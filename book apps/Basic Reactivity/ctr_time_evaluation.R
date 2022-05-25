@@ -31,7 +31,7 @@ server <- function(input, output, session) {
   x1 <- reactive(rpois(input$n, input$lambda1))
   x2 <- reactive(rpois(input$n, input$lambda2))
   output$hist <- renderPlot({
-    freqpoly(x1(), x2(), binwidth = 1, xlim = c(0, 40))
+    freqpoly(x1(), x2(), bindwidth = 1, xlim = c(0, 40))
   }, res = 96)
 }
 
