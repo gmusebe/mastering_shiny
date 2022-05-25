@@ -30,14 +30,14 @@ server <- function(input, output, session) {
       coord_cartesian(xlim = xlim)
   }
   
-  x1 <- reactive({
-    input$simulate
+  x1 <- eventReactive(input$simulate, {
     rpois(input$n, input$lambda1)
   })
-  x2 <- reactive({
-    input$simulate
+  
+  x2 <- eventReactive(input$simulate, {
     rpois(input$n, input$lambda2)
   })
+  
   output$hist <- renderPlot({
     freqpoly(x1(), x2(), bindwidth = input$bindwidth, xlim = c(0, 40))
   }, res = 96)
